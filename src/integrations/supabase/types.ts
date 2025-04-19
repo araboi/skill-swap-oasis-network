@@ -9,7 +9,104 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      skill_requests: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          requester_id: string
+          skill_id: string
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          requester_id: string
+          skill_id: string
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          requester_id?: string
+          skill_id?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "skill_requests_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "skills"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      skills: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          proficiency: Database["public"]["Enums"]["skill_level"]
+          skill_name: string
+          user_id: string
+          willing_to_teach: boolean | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          proficiency: Database["public"]["Enums"]["skill_level"]
+          skill_name: string
+          user_id: string
+          willing_to_teach?: boolean | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          proficiency?: Database["public"]["Enums"]["skill_level"]
+          skill_name?: string
+          user_id?: string
+          willing_to_teach?: boolean | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +115,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      skill_level: "beginner" | "intermediate" | "advanced" | "expert"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +230,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      skill_level: ["beginner", "intermediate", "advanced", "expert"],
+    },
   },
 } as const

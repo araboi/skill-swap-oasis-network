@@ -1,10 +1,14 @@
 
-import { MessageSquare, Search, Users, BookOpen, Star, Heart } from "lucide-react";
+import { MessageSquare, Search, Users, BookOpen, Star, Heart, LogOut } from "lucide-react";
 import Hero from "@/components/Hero";
 import FeatureCard from "@/components/FeatureCard";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
+import { toast } from "@/components/ui/use-toast";
 
 const Index = () => {
+  const navigate = useNavigate();
   const features = [
     {
       title: "Find Perfect Matches",
@@ -23,8 +27,31 @@ const Index = () => {
     }
   ];
 
+  const handleSignOut = async () => {
+    try {
+      await supabase.auth.signOut();
+      navigate("/auth");
+    } catch (error: any) {
+      toast({
+        title: "Error signing out",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <header className="border-b">
+        <div className="mx-auto max-w-7xl px-4 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Skill Swap Oasis</h1>
+          <Button variant="ghost" onClick={handleSignOut}>
+            <LogOut className="mr-2 h-4 w-4" />
+            Sign Out
+          </Button>
+        </div>
+      </header>
+      
       <div className="mx-auto max-w-7xl px-4 py-8">
         <Hero />
         
