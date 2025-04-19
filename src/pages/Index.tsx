@@ -1,5 +1,6 @@
 
 import { MessageSquare, Search, Users, BookOpen, Star, Heart, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
 import Hero from "@/components/Hero";
 import FeatureCard from "@/components/FeatureCard";
 import { Button } from "@/components/ui/button";
@@ -45,10 +46,15 @@ const Index = () => {
       <header className="border-b">
         <div className="mx-auto max-w-7xl px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">Skill Swap Oasis</h1>
-          <Button variant="ghost" onClick={handleSignOut}>
-            <LogOut className="mr-2 h-4 w-4" />
-            Sign Out
-          </Button>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" asChild>
+              <Link to="/skills">Manage Skills</Link>
+            </Button>
+            <Button variant="ghost" onClick={handleSignOut}>
+              <LogOut className="mr-2 h-4 w-4" />
+              Sign Out
+            </Button>
+          </div>
         </div>
       </header>
       
